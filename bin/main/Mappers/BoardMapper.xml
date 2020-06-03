@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.pptaa.test1.mapper.BoardMapper">
+    <!-- 게시글 작성 -->
+    <insert id="boardInsert" parameterType="com.pptaa.test1.VO.Board">
+        insert into board.board1 (board_title , board_writer , board_content ) 
+        values (#{board_title},#{board_writer},#{board_content})
+    </insert>
+    <!-- 게시글 읽기 -->
+    <select id="boardRead" parameterType="int" resultType="com.pptaa.test1.VO.Board">
+        select board_idx, board_title , board_writer , board_content , datetime , viewcnt 
+        from board.board1
+        where board_idx = #{board_idx}
+    </select>
+    <!-- 게시글 수정 -->
+    <update id="boardModify" parameterType="com.pptaa.test1.VO.Board">
+        update board.board1 
+        set board_title = #{board_title}, 
+            board_writer = #{board_writer}, 
+            board_content = #{board_content}
+        where board_idx = #{board_idx}
+    </update>
+    <!-- 게시글 삭제 -->
+    <delete id="boardDelete" parameterType="int">
+        delete from board.board1 
+        where board_idx = #{board_idx}
+    </delete>
+    <!-- 게시글 개수 -->
+    <select id="boardCount" resultType="int">
+        select count(board_idx) 
+        from board.board1
+    </select>
+    <!-- 게시글 페이징 리스트 -->
+    <select id="boardPage" parameterType="hashMap" resultType="com.pptaa.test1.VO.Board">
+        select board_idx, board_title , board_writer , board_content , datetime , viewcnt
+        from board.board1
+        order by board_idx desc 
+        limit #{displayPost}, #{postNum}
+    </select>
+    <!-- 게시글 페이징 리스트 -->
+    <select id="boardPageSearch" parameterType="hashMap" resultType="com.pptaa.test1.VO.Board">
+        select board_idx, board_title , board_writer , board_content , datetime , viewcnt
+        from board.board1
+        <if test="searchType.equals('title')">
+            where board_title like concat("%",#{keyword},"%")
+        </if>
+        <if test="searchType.equals('content')">
+            where board_content like concat("%",#{keyword},"%")
+        </if>
+        <if test="searchType.equals('writer')">
+            where board_writer like concat("%",#{keyword},"%")
+        </if>
+        <if test="searchType.equals('title_content')">
+            where board_content like concat("%",#{keyword},"%")
+            or where board_title like concat("%",#{keyword},"%")
+        </if>
+        order by board_idx desc 
+        limit #{displayPost}, #{postNum}
+    </select>
+</mapper>

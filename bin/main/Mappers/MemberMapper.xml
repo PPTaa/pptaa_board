@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.pptaa.test1.mapper.MemberMapper">
+    <select id="selectMem" parameterType="com.pptaa.test1.VO.Member" resultType="com.pptaa.test1.VO.Member">
+        select * from board.`member` where memberid = #{memberid} and memberpw = #{memberpw};
+    </select>
+
+    <insert id="insertMem" parameterType="com.pptaa.test1.VO.Member">
+        insert into board.member(memberid, memberpw) values (#{memberid}, #{memberpw});
+    </insert>
+
+    <delete id="deleteMem" parameterType="com.pptaa.test1.VO.Member">
+        delete from board.`member` where memberid = #{memberid};
+    </delete>
+
+    <select id="listMem" resultType="com.pptaa.test1.VO.Member">
+        select * from board.`member`
+    </select>
+
+</mapper>

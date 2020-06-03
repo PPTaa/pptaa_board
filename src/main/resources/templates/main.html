@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 제이쿼리 추가 -->
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <!-- 부트스트랩 추가 -->
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="/webjars/popper.js/1.16.0/popper.min.js"></script>
+
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div th:insert="common/header.html" id="header"></div>
+    <h1>Main</h1>
+
+    <a href="/deleteform"> delete 하러가기</a><br />
+    <a href="/list"> member list 보러가기</a><br />
+    <a href="/board/write"> 글쓰기</a><br />
+    <a href="/board/boardlist?num=1"> boardlist 가기</a>
+    <!-- FOOTER -->
+    <div th:insert="common/footer.html" id="header"></div>
+
+
+
+</body>
+
+</html>

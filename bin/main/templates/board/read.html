@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 제이쿼리 추가 -->
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <!-- 부트스트랩 추가 -->
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="/webjars/popper.js/1.16.0/popper.min.js"></script>
+</head>
+<body>
+    <!-- HEADER -->
+    <div th:insert = "common/header.html" id="header"></div>
+    <h1>게시글 읽기 페이지</h1>
+    제목   : <a th:text="${board.board_title}"></a><br/>
+        <hr>
+    작성자 : <a th:text="${board.board_writer}"></a><br/>
+        <hr>
+    내용 : <a th:text="${board.board_content}"></a><br/>
+    <a th:href="@{/board/modify(board_idx=${board.board_idx})}">게시글 수정</a>
+    <a href="/board/boardlist">게시글 리스트로</a>
+    <a th:href="@{/board/delete(board_idx=${board.board_idx})}">게시글 삭제</a>
+    <!-- FOOTER -->
+    <div th:insert = "common/footer.html" id="footer"></div>
+</body>
+</html>

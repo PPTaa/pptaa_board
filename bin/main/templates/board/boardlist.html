@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- 제이쿼리 추가 -->
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <!-- 부트스트랩 추가 -->
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="/webjars/popper.js/1.16.0/popper.min.js"></script>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div th:insert="common/header.html" id="header"></div>
+
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="one wide">번호</th>
+                    <th class="ten wide">글제목</th>
+                    <th class="two wide">작성자</th>
+                    <th class="three wide">작성일</th>
+                    <th class="four wide">조회수</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- CONTENTS !-->
+                <tr th:each="board : ${boardList}">
+                    <td>
+                        <span th:text="${board.board_idx}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{/board/read(board_idx=${board.board_idx})}">
+                            <span th:text="${board.board_title}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <span th:text="${board.board_writer}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${board.datetime}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${board.viewcnt}"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="/board/write">글쓰기</a>
+            </li>
+        </ul>
+    </div>
+    <nav aria-label="...">
+        <ul class="pagination pagination-sm justify-content-center">
+            <li th:if="${paging.prev != true}" class="page-item disabled">
+                <a class="page-link" th:href="@{/board/boardlist(num=${paging.startPageNum-1})}" tabindex="-1"
+                    aria-disabled="true">Previous</a>
+            </li>
+            <li th:if="${paging.prev == true}" class="page-item">
+                <a class="page-link" th:href="@{/board/boardlist(num=${paging.startPageNum-1})}"
+                    tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item" th:each="num : ${#numbers.sequence(paging.startPageNum,paging.endPageNum)}">
+                <a class="page-link" th:text="${num}" th:href="@{/board/boardlist(num=${num})}">
+                    <!-- <spa th:if="${}" class="sr-only">(current)</span> -->
+                </a>
+            </li>
+            <li th:if="${paging.next != true}" class="page-item disabled">
+                <a class="page-link" th:href="@{/board/boardlist(num=${paging.endPageNum+1})}">Next</a>
+            </li>
+            <li th:if="${paging.next == true}" class="page-item">
+                <a class="page-link" th:href="@{/board/boardlist(num=${paging.endPageNum+1})}">Next</a>
+            </li>
+        </ul>
+    </nav>
+    <div>
+        <select name="searchType">
+            <option value="title">제목</option>
+            <option value="content">내용</option>
+            <option value="title_content">제목+내용</option>
+            <option value="writer">작성자</option>
+        </select>
+        
+        <input type="text" name="keyword"/>
+        
+        <button type="button" id="searchbtn">검색</button>
+       </div>
+       
+
+    <!-- FOOTER -->
+    <div th:insert="common/footer.html" id="footer"></div>
+</body>
+<script>
+    document.getElementById("searchbtn").onclick = function (params) {
+        let searchType = document.getElementsByName("searchType")[0].value;
+        let keyword = document.getElementsByName("keyword")[0].value;
+
+        location.href = "/board/boardlist?num=1&searchType="+searchType+"&keyword="+keyword;
+    };
+</script>
+</html>
