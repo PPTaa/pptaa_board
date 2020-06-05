@@ -29,7 +29,7 @@
                 <input th:if="${session.info} != null" type="text" class="form-control" id="board_writer"
                     name="board_writer" placeholder="writer" th:value="${session.info.memberid}">
                 <input th:if="${session.info} == null" type="text" class="form-control" id="board_writer"
-                    name="board_writer" placeholder="writer" th:value="Guest">
+                    name="board_writer" placeholder="writer" th:value="GUEST">
             </div>
             <div class="form-group">
                 <label for="board_content">내용</label>

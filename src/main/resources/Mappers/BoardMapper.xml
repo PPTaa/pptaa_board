@@ -6,12 +6,12 @@
 <mapper namespace="com.pptaa.test1.mapper.BoardMapper">
     <!-- 게시글 작성 -->
     <insert id="boardInsert" parameterType="com.pptaa.test1.VO.Board">
-        insert into board.board1 (board_title , board_writer , board_content ) 
+        insert into board.board1 (board_title , memberid , board_content ) 
         values (#{board_title},#{board_writer},#{board_content})
     </insert>
     <!-- 게시글 읽기 -->
     <select id="boardRead" parameterType="int" resultType="com.pptaa.test1.VO.Board">
-        select board_idx, board_title , board_writer , board_content , datetime , viewcnt 
+        select board_idx, board_title , memberid , board_content , datetime , viewcnt 
         from board.board1
         where board_idx = #{board_idx}
     </select>
@@ -19,7 +19,7 @@
     <update id="boardModify" parameterType="com.pptaa.test1.VO.Board">
         update board.board1 
         set board_title = #{board_title}, 
-            board_writer = #{board_writer}, 
+            memberid = #{board_writer}, 
             board_content = #{board_content}
         where board_idx = #{board_idx}
     </update>
@@ -35,14 +35,14 @@
     </select>
     <!-- 게시글 페이징 리스트 -->
     <select id="boardPage" parameterType="hashMap" resultType="com.pptaa.test1.VO.Board">
-        select board_idx, board_title , board_writer , board_content , datetime , viewcnt
+        select board_idx, board_title , memberid , board_content , datetime , viewcnt
         from board.board1
         order by board_idx desc 
         limit #{displayPost}, #{postNum}
     </select>
     <!-- 게시글 페이징 리스트 -->
     <select id="boardPageSearch" parameterType="hashMap" resultType="com.pptaa.test1.VO.Board">
-        select board_idx, board_title , board_writer , board_content , datetime , viewcnt
+        select board_idx, board_title , memberid , board_content , datetime , viewcnt
         from board.board1
         <if test="searchType.equals('title')">
             where board_title like concat("%",#{keyword},"%")
