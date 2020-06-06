@@ -65,7 +65,9 @@ public class Membercontroller {
         return "deleteform";
     }
     @RequestMapping("/delete")
-    public String delete (Member board) throws Exception {
+    public String delete (Member board, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        session.invalidate();
         service.deleteMem(board);
         return "redirect:/";
     }

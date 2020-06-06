@@ -21,7 +21,7 @@
         <hr>
     내용 : <a th:text="${board.board_content}"></a><br/>
     <a th:href="@{/board/modify(board_idx=${board.board_idx})}">게시글 수정</a>
-    <a href="/board/boardlist">게시글 리스트로</a>
+    <a href="/board/boardlist?num=1">게시글 리스트로</a>
     <a th:href="@{/board/delete(board_idx=${board.board_idx})}">게시글 삭제</a>
     <!-- FOOTER -->
     <div th:insert = "common/footer.html" id="footer"></div>
