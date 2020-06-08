@@ -6,7 +6,7 @@ import lombok.Data;
 public class Board {
     private int board_idx;
     private String board_title;
-    private String board_writer;
+    private String memberid;
     private String board_content;
     private String datetime; 
     private int viewcnt;

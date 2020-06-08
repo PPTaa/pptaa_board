@@ -18,7 +18,7 @@
     <form action="/board/modify" method="POST">
         <input type="text" name="board_idx" th:value = "${board.board_idx}" hidden>
         제목   : <input type="text" name="board_title" th:value = "${board.board_title}"><br/>
-        작성자 : <input type="text" name="board_writer" th:value = "${board.board_writer}"><br/>
+        작성자 : <input type="text" name="memberid" th:value = "${board.memberid}"><br/>
         내용 : <textarea cols="50" rows="6" name="board_content" th:text = "${board.board_content}"></textarea><br/>
         <input type="submit" value="완료">
     </form>

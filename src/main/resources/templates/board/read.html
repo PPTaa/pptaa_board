@@ -17,7 +17,7 @@
     <h1>게시글 읽기 페이지</h1>
     제목   : <a th:text="${board.board_title}"></a><br/>
         <hr>
-    작성자 : <a th:text="${board.board_writer}"></a><br/>
+    작성자 : <a th:text="${board.memberid}"></a><br/>
         <hr>
     내용 : <a th:text="${board.board_content}"></a><br/>
     <a th:href="@{/board/modify(board_idx=${board.board_idx})}">게시글 수정</a>

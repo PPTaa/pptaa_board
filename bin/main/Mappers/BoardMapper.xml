@@ -7,7 +7,7 @@
     <!-- 게시글 작성 -->
     <insert id="boardInsert" parameterType="com.pptaa.test1.VO.Board">
         insert into board.board1 (board_title , memberid , board_content ) 
-        values (#{board_title},#{board_writer},#{board_content})
+        values (#{board_title},#{memberid},#{board_content})
     </insert>
     <!-- 게시글 읽기 -->
     <select id="boardRead" parameterType="int" resultType="com.pptaa.test1.VO.Board">
@@ -19,7 +19,7 @@
     <update id="boardModify" parameterType="com.pptaa.test1.VO.Board">
         update board.board1 
         set board_title = #{board_title}, 
-            memberid = #{board_writer}, 
+            memberid = #{memberid}, 
             board_content = #{board_content}
         where board_idx = #{board_idx}
     </update>
@@ -51,7 +51,7 @@
             where board_content like concat("%",#{keyword},"%")
         </if>
         <if test="searchType.equals('writer')">
-            where board_writer like concat("%",#{keyword},"%")
+            where memberid like concat("%",#{keyword},"%")
         </if>
         <if test="searchType.equals('title_content')">
             where board_content like concat("%",#{keyword},"%")
