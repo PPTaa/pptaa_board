@@ -8,8 +8,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
-    public Member selectMem(Member board) throws Exception;
-    public void insertMem(Member board) throws Exception;
-    public void deleteMem(Member board) throws Exception;
+    public Member selectMem(Member member) throws Exception;
+    public void insertMem(Member member) throws Exception;
+    public void deleteMem(Member member) throws Exception;
     public List<Member> listMem() throws Exception;
+    public Member idcheck(Member member) throws Exception;
 }

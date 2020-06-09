@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller(value = "/")
@@ -85,5 +86,20 @@ public class Membercontroller {
         List<Member> info = service.listMem();
         model.addAttribute("info", info);
         return "list";
+    }
+    //아이디 중복확인
+    @ResponseBody
+    @RequestMapping(value="/idcheck", method=RequestMethod.POST)
+    public int idcheck(Model model, Member member) throws Exception {
+        System.out.println(member.getMemberid());
+        Member idcheck = service.idcheck(member);
+        System.out.println(idcheck);
+
+        int result = 0;
+        if (idcheck == null) {
+            result = 1;
+        }
+        
+        return result;
     }
 }

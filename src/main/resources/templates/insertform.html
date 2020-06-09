@@ -10,7 +10,7 @@
     <!-- 부트스트랩 추가 -->
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="/webjars/popper.js/1.16.0/popper.min.js"></script>
+    
 </head>
 
 <body>
@@ -24,14 +24,36 @@
                 <label for="memberid">ID</label>
                 <input type="text" class="form-control" id="memberid" name="memberid" aria-describedby="emailHelp"
                     placeholder="Enter email">
+                <p id="alert"></p>
+                <button type="button" class="btn btn-outline-primary btn-sm" id="idcheck">중복확인</button>
             </div>
             <div class="form-group col-auto">
                 <label for="memberpw">Password</label>
                 <input type="password" class="form-control" id="memberpw" name="memberpw" placeholder="Password">
             </div></br>
-            <input type="submit" class="btn btn-primary" value="회원가입">
+            <div class="form-group col-auto">
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="회원가입">
+            </div>
         </form>
     </div>
+    <script>
+        $("#idcheck").click(function() {
+            var query = {memberid : $("#memberid").val()};
+            console.log(query);
+            $.ajax({
+                url : "/idcheck",
+                type : "post",
+                data : query,
+                success : function(data) {
+                    if (data == 1) {
+                        $("#alert").text("중복X") 
+                    } else {
+                        $("#alert").text("중복O")
+                    }
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>
