@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,19 +12,42 @@
     <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="/webjars/popper.js/1.16.0/popper.min.js"></script>
 </head>
+
 <body>
     <!-- HEADER -->
-    <div th:insert = "common/header.html" id="header"></div>
+    <div th:insert="common/header.html" id="header"></div>
     <h1>게시글 읽기 페이지</h1>
-    제목   : <a th:text="${board.board_title}"></a><br/>
-        <hr>
-    작성자 : <a th:text="${board.memberid}"></a><br/>
-        <hr>
-    내용 : <a th:text="${board.board_content}"></a><br/>
+    제목 : <a th:text="${board.board_title}"></a><br />
+    <hr>
+    작성자 : <a th:text="${board.memberid}"></a><br />
+    <hr>
+    내용 : <a th:text="${board.board_content}"></a><br />
     <a th:href="@{/board/modify(board_idx=${board.board_idx})}">게시글 수정</a>
     <a href="/board/boardlist?num=1">게시글 리스트로</a>
     <a th:href="@{/board/delete(board_idx=${board.board_idx})}">게시글 삭제</a>
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+        /*
+        var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document,
+                s = d.createElement('script');
+            s.src = 'https://pptaa-board.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
     <!-- FOOTER -->
-    <div th:insert = "common/footer.html" id="footer"></div>
+    <div th:insert="common/footer.html" id="footer"></div>
 </body>
+
 </html>
