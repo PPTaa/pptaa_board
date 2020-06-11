@@ -20,7 +20,7 @@
     <div class="container">
         <h1>Register page</h1>
         <form id="regform" action="/insert" method="POST">
-        <!-- <form id="regform" action="#" method="POST"> -->
+            <!-- <form id="regform" action="#" method="POST"> -->
             <div class="form-group col-auto">
                 <label for="memberid">ID</label>
                 <input type="text" class="form-control" id="memberid" name="memberid" placeholder="Enter ID">
@@ -48,8 +48,13 @@
                 data: query,
                 success: function (data) {
                     if (data == 1) {
-                        $("#alert").text("사용가능한 아이디 입니다.")
+                        $("#alert").text("사용가능한 아이디 입니다.");
+                        document.getElementById("alert").style.color = "black";
                         alert('사용가능한 아이디 입니다.');
+                    } else if (data == 2) {
+                        $("#alert").text("아이디를 입력해주세요.");
+                        document.getElementById("alert").style.color = "black";
+                        alert('아이디를 입력해주세요');
                     } else {
                         $("#alert").text("중복된 아이디입니다.")
                         document.getElementById("alert").style.color = "red";
@@ -59,11 +64,13 @@
             })
         })
 
+
         $("#register").click(function () {
             var alert1 = $("#alert").text();
             if (alert1 == "사용가능한 아이디 입니다.") {
                 document.getElementById("regform").submit();
                 console.log("success");
+                alert("회원가입 완료");
             } else {
                 alert("아이디를 확인해 주세요")
                 $("#memberid").focus();

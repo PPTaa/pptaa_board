@@ -92,14 +92,16 @@ public class Membercontroller {
     @RequestMapping(value="/idcheck", method=RequestMethod.POST)
     public int idcheck(Model model, Member member) throws Exception {
         System.out.println(member.getMemberid());
-        Member idcheck = service.idcheck(member);
-        System.out.println(idcheck);
-
         int result = 0;
-        if (idcheck == null) {
-            result = 1;
-        }
-        
+        Member idcheck = service.idcheck(member);
+        if (member.getMemberid() == ""){
+            System.out.println("check");
+            result = 2;
+        } else {
+            if (idcheck == null) {
+                result = 1;
+            }
+        }        
         return result;
     }
 }
