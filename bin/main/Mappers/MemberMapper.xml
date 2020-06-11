@@ -21,7 +21,7 @@
     </select>
 
     <select id="idcheck" resultType="com.pptaa.test1.VO.Member">
-        select member.memberid from board.`member` where memberid = #{memberid}
+        select member.memberid from board.`member` where BINARY memberid = #{memberid}
     </select>
 
 </mapper>

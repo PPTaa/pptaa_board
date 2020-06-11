@@ -10,7 +10,7 @@
     <!-- 부트스트랩 추가 -->
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    
+
 </head>
 
 <body>
@@ -19,11 +19,11 @@
     <br>
     <div class="container">
         <h1>Register page</h1>
-        <form action="/insert" method="POST">
+        <form id="regform" action="/insert" method="POST">
+        <!-- <form id="regform" action="#" method="POST"> -->
             <div class="form-group col-auto">
                 <label for="memberid">ID</label>
-                <input type="text" class="form-control" id="memberid" name="memberid" aria-describedby="emailHelp"
-                    placeholder="Enter email">
+                <input type="text" class="form-control" id="memberid" name="memberid" placeholder="Enter ID">
                 <p id="alert"></p>
                 <button type="button" class="btn btn-outline-primary btn-sm" id="idcheck">중복확인</button>
             </div>
@@ -32,26 +32,44 @@
                 <input type="password" class="form-control" id="memberpw" name="memberpw" placeholder="Password">
             </div></br>
             <div class="form-group col-auto">
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="회원가입">
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="register" th:text="회원가입"></button>
             </div>
         </form>
     </div>
     <script>
-        $("#idcheck").click(function() {
-            var query = {memberid : $("#memberid").val()};
+        $("#idcheck").click(function () {
+            var query = {
+                memberid: $("#memberid").val()
+            };
             console.log(query);
             $.ajax({
-                url : "/idcheck",
-                type : "post",
-                data : query,
-                success : function(data) {
+                url: "/idcheck",
+                type: "post",
+                data: query,
+                success: function (data) {
                     if (data == 1) {
-                        $("#alert").text("중복X") 
+                        $("#alert").text("사용가능한 아이디 입니다.")
+                        alert('사용가능한 아이디 입니다.');
                     } else {
-                        $("#alert").text("중복O")
+                        $("#alert").text("중복된 아이디입니다.")
+                        document.getElementById("alert").style.color = "red";
+                        alert('중복된 아이디입니다.');
                     }
                 }
             })
+        })
+
+        $("#register").click(function () {
+            var alert1 = $("#alert").text();
+            if (alert1 == "사용가능한 아이디 입니다.") {
+                document.getElementById("regform").submit();
+                console.log("success");
+            } else {
+                alert("아이디를 확인해 주세요")
+                $("#memberid").focus();
+                console.log("fail");
+                return false;
+            }
         })
     </script>
 </body>
