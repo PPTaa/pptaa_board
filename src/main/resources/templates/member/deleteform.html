@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 제이쿼리 추가 -->
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <!-- 부트스트랩 추가 -->
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div th:insert="common/header.html" id="header"></div>
+    <div class="container">
+        <h1>회원삭제 페이지 입니다.</h1>
+        <h2>비밀번호 입력</h2>
+        <form action="/delete" id="deleteform">
+            <input type="hidden" id="memberid" name="memberid" th:value="${session.info.memberid}">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                </div>
+                <input type="text" class="form-control" id="memberpw" name="memberpw">
+            </div>
+        </form>
+        <button type="submit" id="delete" class="btn btn-danger">삭제</button>
+    </div>
+    <script>
+        $("#delete").click(function () {
+            var query = {
+                memberid: $("#memberid").val(),
+                memberpw: $("#memberpw").val()
+            };
+            $.ajax({
+                url: "/deleteconfirm",
+                type: "get",
+                data: query,
+                success: function (data) {
+                    if (data == 0) {
+                        alert("비밀번호 틀림");
+                        $("#memberpw").focus();
+                    } else {
+                        alert("아이디 삭제")
+                        $("#deleteform").submit();
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

@@ -13,7 +13,7 @@
     </insert>
 
     <delete id="deleteMem" parameterType="com.pptaa.test1.VO.Member">
-        delete from board.`member` where memberid = #{memberid}
+        DELETE FROM board.`member` where memberid = #{memberid} AND memberpw = #{memberpw}; 
     </delete>
 
     <select id="listMem" resultType="com.pptaa.test1.VO.Member">
@@ -23,5 +23,9 @@
     <select id="idcheck" resultType="com.pptaa.test1.VO.Member">
         select member.memberid from board.`member` where BINARY memberid = #{memberid}
     </select>
+
+    <!-- <select id="deleteconfirm" resultType="int" parameterType="com.pptaa.test1.VO.Member">
+        select 
+    </select> -->
 
 </mapper>

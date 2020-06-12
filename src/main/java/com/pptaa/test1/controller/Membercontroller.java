@@ -33,7 +33,7 @@ public class Membercontroller {
     // 로그인
     @RequestMapping("/selectform")
     public String selectform () {
-        return "selectform";
+        return "/member/selectform";
     }
     @RequestMapping(value = "/select", method = RequestMethod.POST )
     public String selectTest(Member board, Model model, HttpServletRequest request) throws Exception {
@@ -47,10 +47,11 @@ public class Membercontroller {
 
         return "redirect:/";
     }
+
     // 회원가입
     @RequestMapping("/insertform")
     public String insertform () {
-        return "insertform";
+        return "/member/insertform";
     }
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public ModelAndView insert(ModelAndView mav, Member board) throws Exception {
@@ -60,18 +61,28 @@ public class Membercontroller {
         mav.setViewName("redirect:/");
         return mav;
     }
+
     // 계정삭제
     @RequestMapping("/deleteform")
     public String deleteform() {
-        return "deleteform";
+        return "/member/deleteform";
     }
     @RequestMapping("/delete")
-    public String delete (Member board, HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession();
-        session.invalidate();
-        service.deleteMem(board);
+    public String delete (Member member, HttpServletRequest request) throws Exception {
+        service.deleteMem(member);
         return "redirect:/";
     }
+    // 계정 확인
+    @ResponseBody
+    @RequestMapping("/deleteconfirm")
+    public int deleteConfirm (Member member) throws Exception {
+        Member select = service.selectMem(member);
+        if (select == null) {
+            return 0;
+        }
+        return 1;
+    }
+
     // 로그아웃
     @RequestMapping(value="/logout", method=RequestMethod.GET)
     public String logout(HttpServletRequest request) {
@@ -79,14 +90,16 @@ public class Membercontroller {
         session.invalidate();
         return "redirect:/";
     } 
+
     //리스트 출력
     @RequestMapping(value="/list", method=RequestMethod.GET)
     public String list(Model model) throws Exception {
         
         List<Member> info = service.listMem();
         model.addAttribute("info", info);
-        return "list";
+        return "/member/list";
     }
+
     //아이디 중복확인
     @ResponseBody
     @RequestMapping(value="/idcheck", method=RequestMethod.POST)
@@ -104,4 +117,11 @@ public class Membercontroller {
         }        
         return result;
     }
+
+    //마이페이지
+    @RequestMapping(value = "/myPage", method = RequestMethod.GET)
+    public String myPage() {
+        return "/member/mypage";
+    }
+    
 }

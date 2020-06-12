@@ -15,19 +15,19 @@ public class MemberService implements IMemberService {
     MemberMapper mapper;
 
 	@Override
-	public Member selectMem(Member board) throws Exception {
+	public Member selectMem(Member member) throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.selectMem(board);
+		return mapper.selectMem(member);
 	}
 
 	@Override
-	public void insertMem(Member board) throws Exception {
-		mapper.insertMem(board);
+	public void insertMem(Member member) throws Exception {
+		mapper.insertMem(member);
 	}
 
 	@Override
-	public void deleteMem(Member board) throws Exception {
-		mapper.deleteMem(board);
+	public void deleteMem(Member member) throws Exception {
+		mapper.deleteMem(member);
 
 	}
 
