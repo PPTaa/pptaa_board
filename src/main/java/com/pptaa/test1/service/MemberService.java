@@ -43,6 +43,12 @@ public class MemberService implements IMemberService {
 		return mapper.idcheck(member);
 	}
 
+	@Override
+	public void updateMem(Member member) throws Exception {
+		// TODO Auto-generated method stub
+		mapper.updateMem(member);
+	}
+
 
 
 	

@@ -17,7 +17,7 @@
     <div class="container">
         <h1>회원삭제 페이지 입니다.</h1>
         <h2>비밀번호 입력</h2>
-        <form action="/delete" id="deleteform">
+        <form action="/myPage/delete" id="deleteform">
             <input type="hidden" id="memberid" name="memberid" th:value="${session.info.memberid}">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -35,7 +35,7 @@
                 memberpw: $("#memberpw").val()
             };
             $.ajax({
-                url: "/deleteconfirm",
+                url: "/myPage/deleteconfirm",
                 type: "get",
                 data: query,
                 success: function (data) {
@@ -43,7 +43,7 @@
                         alert("비밀번호 틀림");
                         $("#memberpw").focus();
                     } else {
-                        alert("아이디 삭제")
+                        alert("아이디 삭제");
                         $("#deleteform").submit();
                     }
                 }

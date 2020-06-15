@@ -35,7 +35,7 @@ public class Membercontroller {
     public String selectform () {
         return "/member/selectform";
     }
-    @RequestMapping(value = "/select", method = RequestMethod.POST )
+    @RequestMapping(value = "/select", method = RequestMethod.POST )    
     public String selectTest(Member board, Model model, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
         
@@ -63,18 +63,21 @@ public class Membercontroller {
     }
 
     // 계정삭제
-    @RequestMapping("/deleteform")
+    @RequestMapping("/myPage/deleteform")
     public String deleteform() {
         return "/member/deleteform";
     }
-    @RequestMapping("/delete")
+    @RequestMapping("/myPage/delete")
     public String delete (Member member, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        session.invalidate();
         service.deleteMem(member);
+        
         return "redirect:/";
     }
     // 계정 확인
     @ResponseBody
-    @RequestMapping("/deleteconfirm")
+    @RequestMapping("/myPage/deleteconfirm")
     public int deleteConfirm (Member member) throws Exception {
         Member select = service.selectMem(member);
         if (select == null) {
@@ -124,4 +127,18 @@ public class Membercontroller {
         return "/member/mypage";
     }
     
+    //계정 수정
+    @RequestMapping(value = "/myPage/updateform")
+    public String updateform(){
+        return "member/updateform";
+    }
+    @RequestMapping(value = "/myPage/update")
+    public String update(Member member, HttpServletRequest request) throws Exception {
+        
+        System.out.println(member.getMemberpw());
+        service.updateMem(member);
+        System.out.println("수정완료");
+        
+        return "redirect:/";
+    }
 }

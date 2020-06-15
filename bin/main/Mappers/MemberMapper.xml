@@ -24,8 +24,8 @@
         select member.memberid from board.`member` where BINARY memberid = #{memberid}
     </select>
 
-    <!-- <select id="deleteconfirm" resultType="int" parameterType="com.pptaa.test1.VO.Member">
-        select 
-    </select> -->
+    <update id="updateMem"  parameterType="com.pptaa.test1.VO.Member">
+        update board.`member` set memberpw = #{memberpw} where memberid = #{memberid}
+    </update>
 
 </mapper>

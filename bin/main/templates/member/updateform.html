@@ -1,17 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- 제이쿼리 추가 -->
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <!-- 부트스트랩 추가 -->
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
+    <div th:insert="common/header.html" id="header"></div>
     <h1>update page</h1>
 
-    <form action="/insert" method="POST">
-        <a>ID &nbsp; </a><input type="text" id="memberid" name="memberid"><br/>
-        <a>PW </a><input type="password" id="memberpw" name="memberpw"><br/><br/>
-        <input type="submit" value="등록">
+    <form id="updateform" action="/myPage/update">
+        <div class="form-group col-auto">
+            <label for="memberid">ID</label>
+            <input type="hidden" class="form-control" id="memberid" name="memberid" th:value="${session.info.memberid}">
+            <input type="text" class="form-control" id="memberid" name="memberid0" th:value="${session.info.memberid}"
+                disabled>
+            <p id="alert"></p>
+        </div>
+        <div class="form-group col-auto">
+            <label for="memberpw">원래의 Password</label>
+            <input type="hidden" class="form-control" id="memberpw0" name="memberpw0" placeholder="원래의 Password"
+                th:value="${session.info.memberpw}">
+            <input type="password" class="form-control" id="memberpw1" name="memberpw1" placeholder="원래의 Password">
+        </div>
+        <div class="form-group col-auto">
+            <label for="newmemberpw">변경할 Password</label>
+            <input type="password" class="form-control" id="memberpw" name="memberpw" placeholder="변경할 Password">
+        </div>
+        <div class="form-group col-auto">
+            <button type="submit" class="btn btn-primary btn-lg btn-block" id="update" th:text="수정하기"></button>
+        </div>
     </form>
+    <script>
+        $("#update").click(function () {
+            var memberpw1 = $("#memberpw1").val()
+            var memberpw0 = $("#memberpw0").val()
+            if (memberpw0 != memberpw1) {
+                alert("원래 비밀번호 확인 요망");
+                $("#memberpw1").focus();
+                return false;
+            }
+            alert("회원정보 수정 완료")
+            return true;
+        });
+    </script>
 </body>
+
 </html>
