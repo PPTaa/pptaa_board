@@ -45,7 +45,7 @@ public class Membercontroller {
         model.addAttribute("list", info);
         System.out.println(info);
 
-        return "redirect:/";
+        return "redirect:";
     }
 
     // 회원가입
