@@ -10,18 +10,48 @@
     <!-- 부트스트랩 추가 -->
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
 </head>
 
 <body>
     <!-- HEADER -->
     <div th:insert="common/header.html" id="header"></div>
-    <h1>Main</h1>
-
-    <a href="/deleteform"> delete 하러가기</a><br />
-    <a href="/list"> member list 보러가기</a><br />
-    <a href="/board/write"> 글쓰기</a><br />
-    <a href="/board/boardlist?num=1"> boardlist 가기</a>
+    <br><br>
+    <!-- card container -->
+    <div class="container">
+        <div class="card-deck">
+            <div class="card" style="max-width: 18rem;">
+                <a href="board/boardlist?num=1"><img src="img/sky.jpeg" class="card-img-top" alt="..." height="180"></a>
+                <div class="card-body">
+                    <h5 class="card-title">게시판 1입니다.</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's
+                        content.</p>
+                    <a href="board/boardlist?num=1" class="btn btn-primary">boardlist 가기</a>
+                </div>
+            </div>
+            <div class="card" style="max-width: 18rem;">
+                <a href="/list"><img src="img/member.png" class="card-img-top" alt="..." height="180"></a>
+                <div class="card-body">
+                    <h5 class="card-title">게시판 1입니다.</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's
+                        content.</p>
+                    <a href="/list" class="btn btn-primary">member list 보러가기</a>
+                </div>
+            </div>
+            <div class="card" style="max-width: 18rem;">
+                <a href="/board/write"><img src="img/write.jpg" class="card-img-top" alt="..." height="180"></a>
+                <div class="card-body">
+                    <h5 class="card-title">게시판 1입니다.</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's
+                        content.</p>
+                    <a href="/board/write" class="btn btn-primary">글쓰기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
     <!-- FOOTER -->
     <div th:insert="common/footer.html" id="header"></div>
 

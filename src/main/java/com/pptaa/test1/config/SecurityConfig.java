@@ -31,21 +31,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/**");
     }
     //Service에서 비밀번호를 암호화할 수 있도록 Bean으로 등록
-    // @Bean
-    // public PasswordEncoder passwordEncoder (){
-    //     return new BCryptPasswordEncoder();
-    // }
-    // // HttpSecurity를 통해 HTTP 요청에 대한 웹 기반 보안을 구성할 수 있음
+    @Bean
+    public PasswordEncoder passwordEncoder (){
+        return new BCryptPasswordEncoder();
+    }
+    // HttpSecurity를 통해 HTTP 요청에 대한 웹 기반 보안을 구성할 수 있음
     // @Override
     // protected void configure(HttpSecurity http) throws Exception {
     //     http.authorizeRequests()
-    //         .antMatchers("/admin/**").hasRole("ADMIN")
-    //         .antMatchers("/user/mypage").hasRole("MEMBER")
+    //         .antMatchers("/myPage").hasRole("MEMBER")
     //         .antMatchers("/**").permitAll()
     //     .and()
     //         .formLogin()
-    //         .loginPage("/user/login")
-    //         .defaultSuccessUrl("/user/login/result")
+    //         .loginPage("/selectform")
+    //         .defaultSuccessUrl("/")
     //         .permitAll()
     //     .and()
     //         .logout()

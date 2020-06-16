@@ -21,8 +21,12 @@ public class Membercontroller {
 
     @Autowired
     MemberService service;
-    
+
     @RequestMapping("/")
+    public String test() {
+        return "index";
+    }
+    @RequestMapping("/main")
     public String main(Model model) throws Exception{
         List<Member> info = service.listMem();
         model.addAttribute("info", info);
@@ -45,7 +49,7 @@ public class Membercontroller {
         model.addAttribute("list", info);
         System.out.println(info);
 
-        return "redirect:";
+        return "redirect:main";
     }
 
     // 회원가입
@@ -58,7 +62,7 @@ public class Membercontroller {
 
         service.insertMem(board);
 
-        mav.setViewName("redirect:/");
+        mav.setViewName("redirect:main");
         return mav;
     }
 
@@ -73,7 +77,7 @@ public class Membercontroller {
         session.invalidate();
         service.deleteMem(member);
         
-        return "redirect:/";
+        return "redirect:/main";
     }
     // 계정 확인
     @ResponseBody
@@ -87,11 +91,11 @@ public class Membercontroller {
     }
 
     // 로그아웃
-    @RequestMapping(value="/logout", method=RequestMethod.GET)
+    @RequestMapping(value="/myPage/logout", method=RequestMethod.GET)
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/main";
     } 
 
     //리스트 출력
@@ -139,6 +143,6 @@ public class Membercontroller {
         service.updateMem(member);
         System.out.println("수정완료");
         
-        return "redirect:/";
+        return "redirect:/main";
     }
 }
