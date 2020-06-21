@@ -1,8 +1,13 @@
 package com.pptaa.test1.controller;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.pptaa.test1.VO.Board;
+import com.pptaa.test1.VO.Member;
 import com.pptaa.test1.VO.Paging;
 import com.pptaa.test1.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,4 +94,30 @@ public class BoardController {
 
         return "board/boardlist";
     }
+
+    @RequestMapping("/test")
+    public String test (Model model, @RequestParam("num") int num, HttpServletRequest request,
+        @RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+        @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("info");
+        System.out.println(member.getMemberid());
+        // 게시글 총개수
+        int count = service.myboardCount(member);
+        System.out.println(count);
+        // 페이징 클래스
+        Paging paging = new Paging();
+
+        paging.setNum(num);
+        paging.setCount(count);
+
+        List<Board> listpage=null;
+        listpage = service.boardPageSearch(paging.getDisplayPost(), paging.getPostNum(), searchType, keyword);
+
+        model.addAttribute("boardList",listpage);
+        model.addAttribute("paging", paging);
+
+        return "board/boardlist";
+    }
+
 }

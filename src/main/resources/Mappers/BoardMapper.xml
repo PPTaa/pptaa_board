@@ -60,4 +60,6 @@
         order by board_idx desc 
         limit #{displayPost}, #{postNum}
     </select>
+    <!-- 내가 쓴 게시글 개수 -->
+    
 </mapper>

@@ -3,6 +3,7 @@ package com.pptaa.test1.service;
 import java.util.List;
 
 import com.pptaa.test1.VO.Board;
+import com.pptaa.test1.VO.Member;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;

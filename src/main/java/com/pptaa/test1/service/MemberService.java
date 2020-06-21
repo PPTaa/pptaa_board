@@ -16,7 +16,6 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public Member selectMem(Member member) throws Exception {
-		// TODO Auto-generated method stub
 		return mapper.selectMem(member);
 	}
 
@@ -33,19 +32,16 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public List<Member> listMem() throws Exception {
-		// TODO Auto-generated method stub
 		return mapper.listMem();
 	}
 
 	@Override
 	public Member idcheck(Member member) throws Exception {
-		// TODO Auto-generated method stub
 		return mapper.idcheck(member);
 	}
 
 	@Override
 	public void updateMem(Member member) throws Exception {
-		// TODO Auto-generated method stub
 		mapper.updateMem(member);
 	}
 

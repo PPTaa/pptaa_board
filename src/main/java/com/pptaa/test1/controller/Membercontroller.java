@@ -40,10 +40,10 @@ public class Membercontroller {
         return "/member/selectform";
     }
     @RequestMapping(value = "/select", method = RequestMethod.POST )    
-    public String selectTest(Member board, Model model, HttpServletRequest request) throws Exception {
+    public String selectTest(Member member, Model model, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
         
-        Member info  = service.selectMem(board);
+        Member info  = service.selectMem(member);
 
         session.setAttribute("info", info);
         model.addAttribute("list", info);
