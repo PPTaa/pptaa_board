@@ -3,7 +3,6 @@ package com.pptaa.test1.service;
 import java.util.List;
 
 import com.pptaa.test1.VO.Board;
-import com.pptaa.test1.VO.Member;
 import com.pptaa.test1.mapper.BoardMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +42,8 @@ public class BoardService implements IBoardService {
     }
 
     @Override
-    public List<Board> boardPage(int displayPost, int postNum) throws Exception {
-        return mapper.boardPage(displayPost, postNum);
+    public List<Board> myBoardPage(int displayPost, int postNum, String memberid) throws Exception {
+        return mapper.myBoardPage(displayPost, postNum, memberid);
     }
 
     @Override
@@ -52,6 +51,11 @@ public class BoardService implements IBoardService {
             throws Exception {
         
         return mapper.boardPageSearch(displayPost, postNum, searchType, keyword);
+    }
+
+    @Override
+    public int myCount(String memberid) throws Exception {
+        return mapper.myCount(memberid);
     }
 
 

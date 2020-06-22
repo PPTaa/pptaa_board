@@ -1,6 +1,5 @@
 package com.pptaa.test1.controller;
 
-import java.net.http.HttpRequest;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,18 +22,17 @@ import org.springframework.web.servlet.ModelAndView;
  * BoardController
  */
 @Controller
-@RequestMapping("/board")
 public class BoardController {
 
     @Autowired
     BoardService service;
 
     //글쓰기
-    @RequestMapping("/write")
+    @RequestMapping("/board/write")
     public String writeForm() {
         return "board/write";
     }
-    @RequestMapping(value = "/write", method = RequestMethod.POST)
+    @RequestMapping(value = "/board/write", method = RequestMethod.POST)
     public ModelAndView write(Model model, ModelAndView mav, Board board) throws Exception {
 
         service.boardInsert(board);
@@ -44,7 +42,7 @@ public class BoardController {
     }    
     
     // 게시글 읽기
-    @RequestMapping(value = "/read", method = RequestMethod.GET)
+    @RequestMapping(value = "/board/read", method = RequestMethod.GET)
     public String getRead(@RequestParam("board_idx") int board_idx, Model model) throws Exception {
         Board board = service.boardRead(board_idx);
         model.addAttribute("board", board);
@@ -52,13 +50,13 @@ public class BoardController {
     }
 
     // 게시글 수정 페이지
-    @RequestMapping(value = "/modify", method = RequestMethod.GET)
+    @RequestMapping(value = "/board/modify", method = RequestMethod.GET)
     public String getModify(@RequestParam("board_idx") int board_idx, Model model) throws Exception {
         Board board = service.boardRead(board_idx);
         model.addAttribute("board", board);
         return "board/modify";
     }
-    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    @RequestMapping(value = "/board/modify", method = RequestMethod.POST)
     public String postModify(Board board) throws Exception {
         
         service.boardModify(board);
@@ -67,14 +65,14 @@ public class BoardController {
 
 
     // 게시글 삭제
-    @RequestMapping(value = "/delete")
+    @RequestMapping(value = "/board/delete")
     public String delete(@RequestParam("board_idx") int board_idx) throws Exception {
         service.boardDelete(board_idx);
 
         return "redirect:/board/boardlist?num=1" ;
     }
 
-    @RequestMapping("/boardlist")
+    @RequestMapping("/board/boardlist")
     public String boardlistPage (Model model,@RequestParam("num") int num,
         @RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
         @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
@@ -94,30 +92,26 @@ public class BoardController {
 
         return "board/boardlist";
     }
-
-    @RequestMapping("/test")
-    public String test (Model model, @RequestParam("num") int num, HttpServletRequest request,
-        @RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
-        @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+    // 내 게시글들 확인하기
+    @RequestMapping("/myPage/board/myboardlist")
+    public String test (Model model,HttpServletRequest request, 
+        @RequestParam("num") int num) throws Exception {
         HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute("info");
-        System.out.println(member.getMemberid());
-        // 게시글 총개수
-        int count = service.myboardCount(member);
-        System.out.println(count);
-        // 페이징 클래스
-        Paging paging = new Paging();
+        Member member =  (Member) session.getAttribute("info");
 
+        int count = service.myCount(member.getMemberid());
+
+        Paging paging = new Paging();
         paging.setNum(num);
         paging.setCount(count);
 
-        List<Board> listpage=null;
-        listpage = service.boardPageSearch(paging.getDisplayPost(), paging.getPostNum(), searchType, keyword);
+        List<Board> boardpage = null;
+        boardpage = service.myBoardPage(paging.getDisplayPost(), paging.getPostNum(), member.getMemberid());
 
-        model.addAttribute("boardList",listpage);
+        model.addAttribute("boardList", boardpage);
         model.addAttribute("paging", paging);
-
-        return "board/boardlist";
+        
+        return "board/boardlist_member";
     }
 
 }

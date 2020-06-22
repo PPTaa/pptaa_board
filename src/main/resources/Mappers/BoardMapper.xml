@@ -34,13 +34,6 @@
         from board.board1
     </select>
     <!-- 게시글 페이징 리스트 -->
-    <select id="boardPage" parameterType="hashMap" resultType="com.pptaa.test1.VO.Board">
-        select board_idx, board_title , memberid , board_content , datetime , viewcnt
-        from board.board1
-        order by board_idx desc 
-        limit #{displayPost}, #{postNum}
-    </select>
-    <!-- 게시글 페이징 리스트 -->
     <select id="boardPageSearch" parameterType="hashMap" resultType="com.pptaa.test1.VO.Board">
         select board_idx, board_title , memberid , board_content , datetime , viewcnt
         from board.board1
@@ -61,5 +54,15 @@
         limit #{displayPost}, #{postNum}
     </select>
     <!-- 내가 쓴 게시글 개수 -->
-    
+    <select id="myCount" parameterType="String" resultType="int">
+        select count(board_idx) from board.board1 where memberid = #{memberid}
+    </select>
+    <!-- 내가 쓴 게시글 게시글 리스트 -->
+    <select id="myBoardPage" parameterType="hashMap" resultType="com.pptaa.test1.VO.Board">
+        select board_idx, board_title , memberid , board_content , datetime , viewcnt
+        from board.board1
+        where memberid = #{memberid}
+        order by board_idx desc 
+        limit #{displayPost}, #{postNum}
+    </select>
 </mapper>

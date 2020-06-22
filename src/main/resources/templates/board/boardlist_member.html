@@ -62,23 +62,23 @@
     <nav aria-label="...">
         <ul class="pagination pagination-sm justify-content-center">
             <li th:if="${paging.prev != true}" class="page-item disabled">
-                <a class="page-link" th:href="@{/board/boardlist(num=${paging.startPageNum-1})}" tabindex="-1"
+                <a class="page-link" th:href="@{/myPage/board/myboardlist(num=${paging.startPageNum-1})}" tabindex="-1"
                     aria-disabled="true">Previous</a>
             </li>
             <li th:if="${paging.prev == true}" class="page-item">
-                <a class="page-link" th:href="@{/board/boardlist(num=${paging.startPageNum-1})}"
+                <a class="page-link" th:href="@{/myPage/board/myboardlist(num=${paging.startPageNum-1})}"
                     tabindex="-1">Previous</a>
             </li>
             <li class="page-item" th:each="num : ${#numbers.sequence(paging.startPageNum,paging.endPageNum)}">
-                <a class="page-link" th:text="${num}" th:href="@{/board/boardlist(num=${num})}">
+                <a class="page-link" th:text="${num}" th:href="@{/myPage/board/myboardlist(num=${num})}">
                     <!-- <spa th:if="${}" class="sr-only">(current)</span> -->
                 </a>
             </li>
             <li th:if="${paging.next != true}" class="page-item disabled">
-                <a class="page-link" th:href="@{/board/boardlist(num=${paging.endPageNum+1})}">Next</a>
+                <a class="page-link" th:href="@{/myPage/board/myboardlist(num=${paging.endPageNum+1})}">Next</a>
             </li>
             <li th:if="${paging.next == true}" class="page-item">
-                <a class="page-link" th:href="@{/board/boardlist(num=${paging.endPageNum+1})}">Next</a>
+                <a class="page-link" th:href="@{/myPage/board/myboardlist(num=${paging.endPageNum+1})}">Next</a>
             </li>
         </ul>
     </nav>
