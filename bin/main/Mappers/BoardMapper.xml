@@ -65,4 +65,10 @@
         order by board_idx desc 
         limit #{displayPost}, #{postNum}
     </select>
+    <!-- 조회수 올리기 -->
+    <update id="upViewCnt" parameterType="com.pptaa.test1.VO.Board">
+        update board.board1 
+        set viewcnt = viewcnt +1
+        where memberid = #{memberid} and board_title = #{board_title} and `datetime` = #{datetime}
+    </update>
 </mapper>

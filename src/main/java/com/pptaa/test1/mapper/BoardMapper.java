@@ -19,4 +19,5 @@ public interface BoardMapper {
     public int myCount(String memberid) throws Exception;
     public List<Board> myBoardPage(@Param("displayPost") int displayPost ,
         @Param("postNum") int postNum, @Param("memberid") String memberid) throws Exception;
+    public void upViewCnt(Board board) throws Exception;
 }

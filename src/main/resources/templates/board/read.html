@@ -10,7 +10,6 @@
     <!-- 부트스트랩 추가 -->
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="/webjars/popper.js/1.16.0/popper.min.js"></script>
 </head>
 
 <body>
@@ -26,6 +25,10 @@
     <a href="/board/boardlist?num=1">게시글 리스트로</a>
     <a th:href="@{/board/delete(board_idx=${board.board_idx})}">게시글 삭제</a>
     <div id="disqus_thread"></div>
+    
+    
+    <!-- FOOTER -->
+    <div th:insert="common/footer.html" id="footer"></div>
     <script>
         /**
          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
@@ -45,9 +48,6 @@
         })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
-            Disqus.</a></noscript>
-    <!-- FOOTER -->
-    <div th:insert="common/footer.html" id="footer"></div>
+        Disqus.</a></noscript>
 </body>
-
 </html>

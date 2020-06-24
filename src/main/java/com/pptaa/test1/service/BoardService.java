@@ -58,6 +58,11 @@ public class BoardService implements IBoardService {
         return mapper.myCount(memberid);
     }
 
+    @Override
+    public void upViewCnt(Board board) throws Exception {
+        mapper.upViewCnt(board);
+    }
+
 
    
     

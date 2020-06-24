@@ -13,7 +13,7 @@
     </insert>
 
     <delete id="deleteMem" parameterType="com.pptaa.test1.VO.Member">
-        DELETE FROM board.`member` where memberid = #{memberid} AND memberpw = #{memberpw}; 
+        DELETE FROM board.`member` where memberid = #{memberid} AND memberpw = #{memberpw} 
     </delete>
 
     <select id="listMem" resultType="com.pptaa.test1.VO.Member">

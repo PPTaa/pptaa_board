@@ -12,6 +12,7 @@ import com.pptaa.test1.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,9 +43,17 @@ public class BoardController {
     }    
     
     // 게시글 읽기
-    @RequestMapping(value = "/board/read", method = RequestMethod.GET)
+    @GetMapping(value = "/board/read")
     public String getRead(@RequestParam("board_idx") int board_idx, Model model) throws Exception {
         Board board = service.boardRead(board_idx);
+
+        
+        System.out.println(board);
+        System.out.println(board.getDatetime());
+        System.out.println(board.getBoard_title());
+
+        service.upViewCnt(board);
+
         model.addAttribute("board", board);
         return "board/read";
     }
