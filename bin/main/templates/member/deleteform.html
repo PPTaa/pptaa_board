@@ -19,14 +19,18 @@
         <h2>비밀번호 입력</h2>
         <form action="/myPage/delete" id="deleteform">
             <input type="hidden" id="memberid" name="memberid" th:value="${session.info.memberid}">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+            <div class="form-group col-auto">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                    </div>
+                    <input type="text" class="form-control" id="memberpw" name="memberpw">
                 </div>
-                <input type="text" class="form-control" id="memberpw" name="memberpw">
+            </div>
+            <div class="form-group col-auto">
+                <button type="submit" class="btn btn-danger btn-lg btn-block" id="update" th:text="삭제하기"></button>
             </div>
         </form>
-        <button type="submit" id="delete" class="btn btn-danger">삭제</button>
     </div>
     <script>
         $("#delete").click(function () {
@@ -43,8 +47,11 @@
                         alert("비밀번호 틀림");
                         $("#memberpw").focus();
                     } else {
-                        alert("아이디 삭제");
-                        $("#deleteform").submit();
+                        var test = confirm("정말 삭제하시겠습니까?");
+                        console.log(test);
+                        if (test == true) {
+                            $("#deleteform").submit();
+                        };
                     }
                 }
             });

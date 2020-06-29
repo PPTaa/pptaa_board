@@ -138,10 +138,11 @@ public class Membercontroller {
     }
     @RequestMapping(value = "/myPage/update")
     public String update(Member member, HttpServletRequest request) throws Exception {
-        
-        System.out.println(member.getMemberpw());
+        HttpSession session = request.getSession();
+
         service.updateMem(member);
-        System.out.println("수정완료");
+
+        session.invalidate();
         
         return "redirect:/main";
     }
