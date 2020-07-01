@@ -1,14 +1,18 @@
 package com.pptaa.test1.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.pptaa.test1.VO.Member;
 import com.pptaa.test1.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,16 +44,29 @@ public class Membercontroller {
         return "/member/selectform";
     }
     @RequestMapping(value = "/select", method = RequestMethod.POST )    
-    public String selectTest(Member member, Model model, HttpServletRequest request) throws Exception {
+    public String selectTest(Member member, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
-        
+        //pw 인코딩 match
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
         Member info  = service.selectMem(member);
-
-        session.setAttribute("info", info);
-        model.addAttribute("list", info);
-        System.out.println(info);
-
-        return "redirect:main";
+        boolean matchpw = encoder.matches(member.getMemberpw(), info.getMemberpw());
+        
+        if (matchpw == true) {
+            session.setAttribute("info", info);
+            model.addAttribute("list", info);
+            System.out.println(info);
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인 성공'); location.href='main';</script>");
+            out.flush();
+            return "redirect:main";
+        } else {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('비밀번호를 확인해주세요'); location.href='selectform';</script>");
+            out.flush();
+            return"redirect:selectform";
+        }
     }
 
     // 회원가입
@@ -58,9 +75,13 @@ public class Membercontroller {
         return "/member/insertform";
     }
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public ModelAndView insert(ModelAndView mav, Member board) throws Exception {
-
-        service.insertMem(board);
+    public ModelAndView insert(ModelAndView mav, Member member) throws Exception {
+        // pw 암호화 저장 
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodingpw = encoder.encode(member.getMemberpw());
+        member.setMemberpw(encodingpw);
+        
+        service.insertMem(member);
 
         mav.setViewName("redirect:main");
         return mav;
@@ -79,6 +100,7 @@ public class Membercontroller {
         
         return "redirect:/main";
     }
+    
     // 계정 확인
     @ResponseBody
     @RequestMapping("/myPage/deleteconfirm")

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import com.pptaa.test1.VO.Board;
 import com.pptaa.test1.VO.Member;
 import com.pptaa.test1.VO.Paging;
+import com.pptaa.test1.VO.Search;
 import com.pptaa.test1.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,11 +48,6 @@ public class BoardController {
     public String getRead(@RequestParam("board_idx") int board_idx, Model model) throws Exception {
         Board board = service.boardRead(board_idx);
 
-        
-        System.out.println(board);
-        System.out.println(board.getDatetime());
-        System.out.println(board.getBoard_title());
-
         service.upViewCnt(board);
 
         model.addAttribute("board", board);
@@ -72,7 +68,6 @@ public class BoardController {
         return "redirect:/board/read?board_idx="+board.getBoard_idx();
     }
 
-
     // 게시글 삭제
     @RequestMapping(value = "/board/delete")
     public String delete(@RequestParam("board_idx") int board_idx) throws Exception {
@@ -81,12 +76,21 @@ public class BoardController {
         return "redirect:/board/boardlist?num=1" ;
     }
 
+    // 게시글 리스트 표시
     @RequestMapping("/board/boardlist")
-    public String boardlistPage (Model model,@RequestParam("num") int num,
+    public String boardlistPage (Model model, HttpServletRequest request ,@RequestParam("num") int num,
         @RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
         @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
-        // 게시글 총개수
-        int count = service.boardCount();
+        
+        String kw = request.getParameter("keyword");
+        int count;
+        if(kw == null){
+            // 게시글 총개수
+            count = service.boardCount();
+        } else{
+            count = service.searchCount(searchType, keyword);
+        }
+        System.out.println(count);
         // 페이징 클래스
         Paging paging = new Paging();
 
@@ -96,15 +100,21 @@ public class BoardController {
         List<Board> listpage=null;
         listpage = service.boardPageSearch(paging.getDisplayPost(), paging.getPostNum(), searchType, keyword);
 
+        //Search 클래스
+        Search search = new Search();
+        search.setSearchType(searchType);
+        search.setKeyword(keyword);
+
         model.addAttribute("boardList",listpage);
         model.addAttribute("paging", paging);
+        model.addAttribute("search", search);
 
         return "board/boardlist";
     }
+    
     // 내 게시글들 확인하기
     @RequestMapping("/myPage/board/myboardlist")
-    public String test (Model model,HttpServletRequest request, 
-        @RequestParam("num") int num) throws Exception {
+    public String test (Model model,HttpServletRequest request, @RequestParam("num") int num) throws Exception {
         HttpSession session = request.getSession();
         Member member =  (Member) session.getAttribute("info");
 

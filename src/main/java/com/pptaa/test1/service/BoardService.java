@@ -63,7 +63,8 @@ public class BoardService implements IBoardService {
         mapper.upViewCnt(board);
     }
 
-
-   
-    
+    @Override
+    public int searchCount(String searchType, String keyword) throws Exception {
+        return mapper.searchCount(searchType, keyword);
+    }    
 }

@@ -5,7 +5,7 @@
     
 <mapper namespace="com.pptaa.test1.mapper.MemberMapper">
     <select id="selectMem" parameterType="com.pptaa.test1.VO.Member" resultType="com.pptaa.test1.VO.Member">
-        select * from board.`member` where memberid = #{memberid} and memberpw = #{memberpw}
+        select * from board.`member` where memberid = #{memberid}
     </select>
 
     <insert id="insertMem" parameterType="com.pptaa.test1.VO.Member">

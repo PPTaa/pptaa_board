@@ -22,6 +22,7 @@ public class Interceptor implements HandlerInterceptor{
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<script>alert('로그인 해주세요'); location.href='/selectform'</script>");
+            out.flush();
             return false;
         } else {
             return true;

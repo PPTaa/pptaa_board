@@ -20,4 +20,5 @@ public interface BoardMapper {
     public List<Board> myBoardPage(@Param("displayPost") int displayPost ,
         @Param("postNum") int postNum, @Param("memberid") String memberid) throws Exception;
     public void upViewCnt(Board board) throws Exception;
+    public int searchCount(@Param("searchType") String searchType, @Param("keyword") String keyword ) throws Exception;
 }

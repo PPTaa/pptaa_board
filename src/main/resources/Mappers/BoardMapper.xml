@@ -71,4 +71,22 @@
         set viewcnt = viewcnt +1
         where memberid = #{memberid} and board_title = #{board_title} and `datetime` = #{datetime}
     </update>
+
+    <!-- 검색 후 게시글 개수 -->
+    <select id="searchCount" parameterType="hashMap" resultType="int">
+        select count(board_idx) from board.board1 
+        <if test="searchType.equals('title')">
+            where board_title like concat("%",#{keyword},"%")
+        </if>
+        <if test="searchType.equals('content')">
+            where board_content like concat("%",#{keyword},"%")
+        </if>
+        <if test="searchType.equals('writer')">
+            where memberid like concat("%",#{keyword},"%")
+        </if>
+        <if test="searchType.equals('title_content')">
+            where board_content like concat("%",#{keyword},"%")
+            or where board_title like concat("%",#{keyword},"%")
+        </if>
+    </select>
 </mapper>
